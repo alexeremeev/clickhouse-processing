@@ -1,0 +1,11 @@
+spring:
+  application.name: demo-app
+app:
+  kafka:
+    servers: localhost:9092
+    group-id: demo-app
+    concurrency-level: 10
+  clickhouse:
+    url: jdbc:clickhouse://localhost:8123/test
+    username: test
+    password: test
