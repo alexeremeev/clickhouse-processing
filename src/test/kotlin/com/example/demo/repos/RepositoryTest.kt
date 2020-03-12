@@ -16,6 +16,7 @@ import org.springframework.test.context.TestConstructor.AutowireMode.ALL
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.math.BigDecimal
+import java.time.Instant.now
 import java.util.*
 
 @SpringBootTest
@@ -35,7 +36,8 @@ internal class RepositoryTest(
             UUID.randomUUID(),
             firstUser,
             "2020-02-29",
-            BigDecimal.valueOf(2)
+            BigDecimal.valueOf(2),
+            now()
         )
 
         eventRepository.save(listOf(event))
@@ -52,14 +54,16 @@ internal class RepositoryTest(
             UUID.randomUUID(),
             firstUser,
             "2020-02-29",
-            BigDecimal.valueOf(3)
+            BigDecimal.valueOf(3),
+            now()
         )
 
         val second = Event(
             UUID.randomUUID(),
             firstUser,
             "2020-03-01",
-            BigDecimal.valueOf(-4)
+            BigDecimal.valueOf(-4),
+            now()
         )
 
         eventRepository.save(listOf(first, second))
@@ -77,7 +81,8 @@ internal class RepositoryTest(
             UUID.randomUUID(),
             firstUser,
             february,
-            BigDecimal.valueOf(3)
+            BigDecimal.valueOf(3),
+            now()
         )
 
         val march = "2020-03-01"
@@ -85,7 +90,8 @@ internal class RepositoryTest(
             UUID.randomUUID(),
             firstUser,
             march,
-            BigDecimal.valueOf(-4)
+            BigDecimal.valueOf(-4),
+            now()
         )
 
         eventRepository.save(listOf(firstEvent, secondEvent))

@@ -3,7 +3,6 @@ package com.example.demo.repos
 import com.example.demo.models.Event
 import org.springframework.stereotype.Repository
 import java.sql.Connection
-import java.time.Instant.now
 
 @Repository
 class EventRepository(val connection: Connection) {
@@ -17,7 +16,7 @@ class EventRepository(val connection: Connection) {
                 setString(++index, it.userId)
                 setString(++index, it.bucket)
                 setBigDecimal(++index, it.quantity)
-                setLong(++index, now().epochSecond)
+                setLong(++index, it.timestamp.epochSecond)
                 addBatch()
             }
 
