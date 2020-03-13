@@ -1,9 +1,9 @@
 spring:
-  application.name: demo-app
+  application.name: clickhouse-processing-demo-app
 app:
   kafka:
     servers: localhost:9092
-    group-id: demo-app
+    group-id: clickhouse-processing-demo-app
     concurrency-level: 10
   clickhouse:
     url: jdbc:clickhouse://localhost:8123/test
