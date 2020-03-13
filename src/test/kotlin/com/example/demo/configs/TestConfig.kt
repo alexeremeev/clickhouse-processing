@@ -7,8 +7,7 @@ import org.testcontainers.containers.ClickHouseContainer
 class TestConfig {
 
     companion object {
-        val firstUser = "test_user_1"
-        val secondUser = "test_user_2"
+        const val TEST_USER = "test_user_1"
     }
 
     class CustomContextLoader : SpringBootContextLoader() {

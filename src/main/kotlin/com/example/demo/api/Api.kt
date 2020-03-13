@@ -17,12 +17,7 @@ class Api(val aggregateHandler: AggregateHandler) {
     fun router() = router {
         GET("/users/{userId}").nest {
             GET("/quantity") { req -> aggregateHandler.find(req.userId()) }
-            GET("/buckets/{bucket}/quantity") { req ->
-                aggregateHandler.find(
-                    req.userId(),
-                    req.bucket()
-                )
-            }
+            GET("/buckets/{bucket}/quantity") { req -> aggregateHandler.find(req.userId(), req.bucket()) }
         }
     }
 

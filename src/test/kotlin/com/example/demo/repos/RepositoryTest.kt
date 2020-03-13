@@ -1,7 +1,7 @@
 package com.example.demo.repos
 
 import com.example.demo.configs.AbstractIntegrationTest
-import com.example.demo.configs.TestConfig.Companion.firstUser
+import com.example.demo.configs.TestConfig.Companion.TEST_USER
 import com.example.demo.configs.TestConfig.CustomContextLoader
 import com.example.demo.models.Event
 import org.hamcrest.MatcherAssert.assertThat
@@ -34,7 +34,7 @@ internal class RepositoryTest(
         val quantity = BigDecimal.valueOf(2)
         val event = Event(
             UUID.randomUUID(),
-            firstUser,
+            TEST_USER,
             "2020-02-29",
             BigDecimal.valueOf(2),
             now()
@@ -42,7 +42,7 @@ internal class RepositoryTest(
 
         eventRepository.save(listOf(event))
 
-        val result = aggregateRepository.findByUser(firstUser)
+        val result = aggregateRepository.findByUser(TEST_USER)
 
         assertNotNull(result)
         assertThat(quantity, comparesEqualTo(result?.quantity))
@@ -52,7 +52,7 @@ internal class RepositoryTest(
     fun `given multiple events should save and produce aggregate`() {
         val first = Event(
             UUID.randomUUID(),
-            firstUser,
+            TEST_USER,
             "2020-02-29",
             BigDecimal.valueOf(3),
             now()
@@ -60,7 +60,7 @@ internal class RepositoryTest(
 
         val second = Event(
             UUID.randomUUID(),
-            firstUser,
+            TEST_USER,
             "2020-03-01",
             BigDecimal.valueOf(-4),
             now()
@@ -68,7 +68,7 @@ internal class RepositoryTest(
 
         eventRepository.save(listOf(first, second))
 
-        val result = aggregateRepository.findByUser(firstUser)
+        val result = aggregateRepository.findByUser(TEST_USER)
 
         assertNotNull(result)
         assertThat(BigDecimal.valueOf(-1), comparesEqualTo(result?.quantity))
@@ -79,7 +79,7 @@ internal class RepositoryTest(
         val february = "2020-02-29"
         val firstEvent = Event(
             UUID.randomUUID(),
-            firstUser,
+            TEST_USER,
             february,
             BigDecimal.valueOf(3),
             now()
@@ -88,7 +88,7 @@ internal class RepositoryTest(
         val march = "2020-03-01"
         val secondEvent = Event(
             UUID.randomUUID(),
-            firstUser,
+            TEST_USER,
             march,
             BigDecimal.valueOf(-4),
             now()
@@ -96,8 +96,8 @@ internal class RepositoryTest(
 
         eventRepository.save(listOf(firstEvent, secondEvent))
 
-        val firstAggregate = aggregateRepository.findByUserAndBucket(firstUser, february)
-        val secondAggregate = aggregateRepository.findByUserAndBucket(firstUser, march)
+        val firstAggregate = aggregateRepository.findByUserAndBucket(TEST_USER, february)
+        val secondAggregate = aggregateRepository.findByUserAndBucket(TEST_USER, march)
 
         assertNotNull(firstAggregate)
         assertNotNull(secondAggregate)
@@ -110,7 +110,7 @@ internal class RepositoryTest(
 
     @Test
     fun `given no data should return no value`() {
-        val result = aggregateRepository.findByUser(firstUser)
+        val result = aggregateRepository.findByUser(TEST_USER)
 
         assertNull(result)
     }
